@@ -2,6 +2,7 @@ package teamfresh.demo.compensation.domain;
 
 import static javax.persistence.FetchType.LAZY;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,6 +31,10 @@ public class Compensation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String content;
 
     @Enumerated(EnumType.STRING)
@@ -41,4 +46,8 @@ public class Compensation extends BaseEntity {
 
     @OneToOne(mappedBy = "compensation", fetch = LAZY)
     private VOC voc;
+
+    public void updateStatus(CompensationStatus status) {
+        this.status = status;
+    }
 }
