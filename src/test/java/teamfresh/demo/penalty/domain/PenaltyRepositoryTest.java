@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import teamfresh.demo.BaseRepositoryTest;
 import teamfresh.demo.compensation.domain.Compensation;
-import teamfresh.demo.compensation.domain.CompensationRepository;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.domain.CompensationStatus;
 
 @BaseRepositoryTest
