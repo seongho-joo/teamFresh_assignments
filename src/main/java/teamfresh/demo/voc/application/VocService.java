@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import teamfresh.demo.compensation.domain.Compensation;
 import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.exception.NotExistCompensationException;
@@ -21,6 +22,7 @@ public class VocService {
     private final VocRepository vocRepository;
     private final CompensationRepository compensationRepository;
 
+    @Transactional
     public void createVoc(VocRequest request) {
         Compensation compensation = compensationRepository.findById(request.getCompensationId())
             .orElseThrow(
