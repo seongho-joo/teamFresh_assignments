@@ -6,11 +6,13 @@ import static teamfresh.demo.voc.ui.VocResponseMessage.GET_VOC_LIST;
 
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamfresh.demo.common.dto.CommonResponse;
@@ -29,7 +31,7 @@ public class VocController {
 
     @PostMapping
     @ApiOperation(value = "voc 등록")
-    public CommonResponse<Void> createVoc(VocRequest request) {
+    public CommonResponse<Void> createVoc(@Valid @RequestBody VocRequest request) {
         vocService.createVoc(request);
         return CommonResponse.from(CREATE_VOC.getMessage());
     }
