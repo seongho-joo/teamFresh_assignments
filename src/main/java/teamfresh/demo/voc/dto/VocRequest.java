@@ -4,8 +4,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import teamfresh.demo.common.domain.Responsibility;
 import teamfresh.demo.compensation.domain.Compensation;
 import teamfresh.demo.voc.domain.Imputation;
@@ -13,6 +15,7 @@ import teamfresh.demo.voc.domain.VOC;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VocRequest {
 
     @NotBlank(message = "담당자 회사를 입력해주세요.")
