@@ -5,10 +5,7 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import teamfresh.demo.compensation.domain.Compensation;
 import teamfresh.demo.compensation.domain.CompensationStatus;
-import teamfresh.demo.penalty.domain.Penalty;
-import teamfresh.demo.voc.domain.VOC;
 import teamfresh.demo.voc.dto.VocDto;
 
 
@@ -34,17 +31,5 @@ public class CompensationResponse {
         this.voc = voc;
         this.penaltyCost = penaltyCost;
         this.createdAt = createdAt;
-    }
-
-    public static CompensationResponse of(Compensation compensation, VOC voc, Penalty penalty) {
-        return new CompensationResponse(
-            compensation.getId(),
-            compensation.getTitle(),
-            compensation.getContent(),
-            compensation.getStatus(),
-            VocDto.from(voc),
-            penalty.getCost(),
-            compensation.getCreatedAt()
-        );
     }
 }
