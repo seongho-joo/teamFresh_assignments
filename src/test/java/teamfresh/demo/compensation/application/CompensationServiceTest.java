@@ -19,7 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import teamfresh.demo.compensation.domain.Compensation;
-import teamfresh.demo.compensation.domain.CompensationRepository;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.dto.CompensationsResponse;
 import teamfresh.demo.compensation.dto.CompensationRequest;
 import teamfresh.demo.compensation.dto.CompensationResponse;
@@ -76,7 +76,7 @@ class CompensationServiceTest {
             given(compensationRepository.findById(anyLong())).willReturn(Optional.ofNullable(compensation));
 
             // when
-            CompensationResponse foundCompensation = compensationService.getCompensationById(10L);
+            CompensationResponse foundCompensation = compensationService.getCompensation(10L);
 
             // then
             assertThat(foundCompensation.getId()).isEqualTo(compensation.getId());
@@ -87,7 +87,7 @@ class CompensationServiceTest {
         void getCompensationById_fail() {
             // when, then
             assertThrows(NotExistCompensationException.class,
-                () -> compensationService.getCompensationById(1000L));
+                () -> compensationService.getCompensation(1000L));
         }
 
         @Test
@@ -104,7 +104,7 @@ class CompensationServiceTest {
             given(compensationRepository.findAll()).willReturn(compensations);
 
             // when
-            List<CompensationsResponse> list = compensationService.getCompensationList();
+            List<CompensationsResponse> list = compensationService.getCompensations();
 
             // then
             assertThat(list).hasSize(5);
