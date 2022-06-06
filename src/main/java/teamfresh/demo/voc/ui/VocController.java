@@ -3,6 +3,7 @@ package teamfresh.demo.voc.ui;
 import static teamfresh.demo.voc.ui.VocResponseMessage.CREATE_VOC;
 import static teamfresh.demo.voc.ui.VocResponseMessage.GET_VOC;
 import static teamfresh.demo.voc.ui.VocResponseMessage.GET_VOC_LIST;
+import static teamfresh.demo.voc.ui.VocResponseMessage.UPDATE_DRIVER_CONFIRMATION;
 
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +48,12 @@ public class VocController {
     @ApiOperation(value = "voc 목록 조회")
     public CommonResponse<List<VocsResponse>> getVocLists() {
         return CommonResponse.of(vocService.getVocLists(), GET_VOC_LIST.getMessage());
+    }
+
+    @PutMapping("/{vocId}")
+    @ApiOperation(value = "배송기사 패널티 확인")
+    public CommonResponse<Void> driverConfirmed(@PathVariable Long vocId) {
+        vocService.driverConfirmed(vocId);
+        return CommonResponse.from(UPDATE_DRIVER_CONFIRMATION.getMessage());
     }
 }
