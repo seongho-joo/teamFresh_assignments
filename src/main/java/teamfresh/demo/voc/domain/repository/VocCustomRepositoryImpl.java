@@ -17,25 +17,27 @@ public class VocCustomRepositoryImpl implements VocCustomRepository {
 
     @Override
     public Optional<VocResponse> getVoc(Long id) {
-        return Optional.ofNullable(factory.select(new QVocResponse(
-                vOC.id,
-                vOC.responsibility.name,
-                vOC.imputationContents,
-                penalty.content,
-                vOC.driverConfirmationStatus,
-                vOC.objectionStatus,
-                new QCompensationResponse(
-                    vOC.compensation.id,
-                    vOC.compensation.title,
-                    vOC.compensation.content,
-                    vOC.compensation.status,
-                    vOC.compensation.createdAt
-                )
-            ))
-            .from(vOC)
-            .join(penalty)
-            .on(penalty.compensation.id.eq(vOC.compensation.id))
-            .where(vOC.id.eq(id))
-            .fetchOne());
+        return Optional.ofNullable(
+            factory.select(
+                    new QVocResponse(
+                        vOC.id,
+                        vOC.responsibility.name,
+                        vOC.imputationContents,
+                        penalty.content,
+                        vOC.driverConfirmationStatus,
+                        vOC.objectionStatus,
+                        new QCompensationResponse(
+                            vOC.compensation.id,
+                            vOC.compensation.title,
+                            vOC.compensation.content,
+                            vOC.compensation.status,
+                            vOC.compensation.createdAt
+                        )
+                    ))
+                .from(vOC)
+                .join(penalty)
+                .on(penalty.compensation.id.eq(vOC.compensation.id))
+                .where(vOC.id.eq(id))
+                .fetchOne());
     }
 }
