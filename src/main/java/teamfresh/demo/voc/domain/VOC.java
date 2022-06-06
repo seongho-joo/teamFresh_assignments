@@ -38,14 +38,18 @@ public class VOC {
     private Imputation imputation;
 
     @Column(nullable = false)
+    private String imputationContents;
+
+    @Column(nullable = false)
     private Boolean driverConfirmationStatus;
 
-    @Enumerated(STRING)
-    private ObjectionStatus objectionStatus;
+    @Column(nullable = false)
+    private Boolean objectionStatus;
 
     private String objectionContent;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "compensation_id")
     private Compensation compensation;
+
 }
