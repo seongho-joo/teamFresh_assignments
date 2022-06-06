@@ -1,15 +1,17 @@
 package teamfresh.demo.compensation.application;
 
+import static teamfresh.demo.compensation.domain.CompensationStatus.REQUESTED;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamfresh.demo.compensation.domain.Compensation;
-import teamfresh.demo.compensation.domain.CompensationRepository;
-import teamfresh.demo.compensation.dto.CompensationsResponse;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.dto.CompensationRequest;
 import teamfresh.demo.compensation.dto.CompensationResponse;
+import teamfresh.demo.compensation.dto.CompensationsResponse;
 import teamfresh.demo.compensation.exception.NotExistCompensationException;
 
 @Slf4j
@@ -23,19 +25,17 @@ public class CompensationService {
     @Transactional
     public Long createCompensation(CompensationRequest request) {
         Compensation savedCompensation = compensationRepository.save(
-            request.toCompensation(request.getTitle(), request.getContent())
+            request.toCompensation(REQUESTED)
         );
         return savedCompensation.getId();
     }
 
-    public CompensationResponse getCompensationById(Long compensationId) {
-        Compensation compensation = compensationRepository.findById(compensationId)
-            .orElseThrow(NotExistCompensationException::new);
-
-        return CompensationResponse.from(compensation);
+    public CompensationResponse getCompensation(Long compensationId) {
+        return compensationRepository.getCompensation(compensationId).orElseThrow(
+            NotExistCompensationException::new);
     }
 
-    public List<CompensationsResponse> getCompensationList() {
+    public List<CompensationsResponse> getCompensations() {
         return CompensationsResponse.from(compensationRepository.findAll());
     }
 }
