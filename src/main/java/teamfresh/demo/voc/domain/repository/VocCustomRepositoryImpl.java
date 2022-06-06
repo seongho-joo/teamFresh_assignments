@@ -6,7 +6,7 @@ import static teamfresh.demo.voc.domain.QVOC.vOC;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import teamfresh.demo.compensation.dto.QCompensationResponse;
+import teamfresh.demo.compensation.dto.QCompensationDto;
 import teamfresh.demo.voc.dto.QVocResponse;
 import teamfresh.demo.voc.dto.VocResponse;
 
@@ -26,7 +26,7 @@ public class VocCustomRepositoryImpl implements VocCustomRepository {
                         penalty.content,
                         vOC.driverConfirmationStatus,
                         vOC.objectionStatus,
-                        new QCompensationResponse(
+                        new QCompensationDto(
                             vOC.compensation.id,
                             vOC.compensation.title,
                             vOC.compensation.content,

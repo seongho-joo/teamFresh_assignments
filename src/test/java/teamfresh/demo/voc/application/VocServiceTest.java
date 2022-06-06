@@ -21,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import teamfresh.demo.common.domain.Responsibility;
 import teamfresh.demo.compensation.domain.Compensation;
 import teamfresh.demo.compensation.domain.repository.CompensationRepository;
-import teamfresh.demo.compensation.dto.CompensationResponse;
+import teamfresh.demo.compensation.dto.CompensationDto;
 import teamfresh.demo.compensation.exception.NotExistCompensationException;
 import teamfresh.demo.penalty.domain.Penalty;
 import teamfresh.demo.voc.domain.Imputation;
@@ -134,7 +134,7 @@ class VocServiceTest {
             penalty.getContent(),
             voc.getDriverConfirmationStatus(),
             voc.getObjectionStatus(),
-            CompensationResponse.from(voc.getCompensation())
+            CompensationDto.from(voc.getCompensation())
         );
         given(vocRepository.getVoc(anyLong())).willReturn(Optional.of(response));
 

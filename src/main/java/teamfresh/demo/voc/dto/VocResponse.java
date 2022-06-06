@@ -3,7 +3,7 @@ package teamfresh.demo.voc.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import teamfresh.demo.compensation.dto.CompensationResponse;
+import teamfresh.demo.compensation.dto.CompensationDto;
 import teamfresh.demo.penalty.domain.Penalty;
 import teamfresh.demo.voc.domain.VOC;
 
@@ -11,24 +11,18 @@ import teamfresh.demo.voc.domain.VOC;
 @NoArgsConstructor
 public class VocResponse {
 
-    Long id;
-
-    String responsibleName;
-
-    String imputationContents;
-
-    String penaltyContents;
-
-    Boolean driverConfirmed;
-
-    Boolean objectionStatus;
-
-    CompensationResponse compensation;
+    private Long id;
+    private String responsibleName;
+    private String imputationContents;
+    private String penaltyContents;
+    private Boolean driverConfirmed;
+    private Boolean objectionStatus;
+    private CompensationDto compensation;
 
     @QueryProjection
     public VocResponse(Long id, String responsibleName, String imputationContents,
         String penaltyContents, Boolean driverConfirmed, Boolean objectionStatus,
-        CompensationResponse compensation) {
+        CompensationDto compensation) {
         this.id = id;
         this.responsibleName = responsibleName;
         this.imputationContents = imputationContents;
@@ -47,7 +41,7 @@ public class VocResponse {
             penalty.getContent(),
             voc.getDriverConfirmationStatus(),
             voc.getObjectionStatus(),
-            CompensationResponse.from(voc.getCompensation())
+            CompensationDto.from(voc.getCompensation())
             );
     }
 }
