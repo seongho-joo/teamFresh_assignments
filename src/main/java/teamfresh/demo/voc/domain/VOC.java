@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import teamfresh.demo.common.domain.BaseEntity;
 import teamfresh.demo.common.domain.Responsibility;
 import teamfresh.demo.compensation.domain.Compensation;
 
@@ -25,7 +26,7 @@ import teamfresh.demo.compensation.domain.Compensation;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class VOC {
+public class VOC extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,4 +53,7 @@ public class VOC {
     @JoinColumn(name = "compensation_id")
     private Compensation compensation;
 
+    public void updateDriverConfirmationStatus() {
+        this.driverConfirmationStatus = true;
+    }
 }
