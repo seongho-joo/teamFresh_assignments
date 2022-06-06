@@ -9,13 +9,27 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import teamfresh.demo.BaseRepositoryTest;
+import teamfresh.demo.common.domain.Responsibility;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
+import teamfresh.demo.compensation.dto.CompensationResponse;
 import teamfresh.demo.compensation.exception.NotExistCompensationException;
+import teamfresh.demo.penalty.domain.Penalty;
+import teamfresh.demo.penalty.domain.PenaltyRepository;
+import teamfresh.demo.voc.domain.Imputation;
+import teamfresh.demo.voc.domain.VOC;
+import teamfresh.demo.voc.domain.repository.VocRepository;
 
 @BaseRepositoryTest
 class CompensationRepositoryTest {
 
     @Autowired
     private CompensationRepository compensationRepository;
+
+    @Autowired
+    private VocRepository vocRepository;
+
+    @Autowired
+    private PenaltyRepository penaltyRepository;
 
     private Compensation compensation;
 
@@ -53,17 +67,34 @@ class CompensationRepositoryTest {
 
     @Test
     @DisplayName("배상 상세보기 테스트")
-    void findCompensationById() {
+    void getCompensation() {
         // given
         Compensation savedCompensation = compensationRepository.save(compensation);
+        VOC voc = VOC.builder()
+            .compensation(savedCompensation)
+            .driverConfirmationStatus(true)
+            .responsibility(new Responsibility("company", "name", "01012341234"))
+            .objectionStatus(false)
+            .imputation(Imputation.DELIVERY)
+            .imputationContents("imputation contents")
+            .build();
+        Penalty penalty = Penalty.builder()
+            .compensation(savedCompensation)
+            .content("penalty contents")
+            .cost(10000)
+            .build();
+
+        vocRepository.save(voc);
+        penaltyRepository.save(penalty);
 
         // when
-        Compensation foundCompensation = compensationRepository.findById(savedCompensation.getId())
-            .orElseThrow(
-                NotExistCompensationException::new);
+        CompensationResponse response = compensationRepository.getCompensation(
+            savedCompensation.getId()).orElseThrow(
+            NotExistCompensationException::new);
 
         // then
-        assertThat(foundCompensation).isEqualTo(savedCompensation);
+        assertThat(response.getPenaltyCost()).isEqualTo(penalty.getCost());
+        assertThat(response.getVoc().getId()).isEqualTo(voc.getId());
     }
 
     @Test
