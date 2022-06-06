@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import teamfresh.demo.compensation.domain.Compensation;
-import teamfresh.demo.compensation.domain.CompensationRepository;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.domain.CompensationStatus;
 import teamfresh.demo.penalty.domain.Penalty;
 import teamfresh.demo.penalty.domain.PenaltyRepository;
