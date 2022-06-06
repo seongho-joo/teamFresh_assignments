@@ -34,8 +34,6 @@ public class VocRequest {
     @NotBlank(message = "귀책 내용을 입력해주세요.")
     private String imputationContents;
 
-    private Boolean driverConfirmationStatus;
-
     private Boolean objectionStatus;
 
     private String objectionContent;
@@ -52,7 +50,7 @@ public class VocRequest {
             .imputation(Imputation.from(imputationCodes))
             .compensation(compensation)
             .imputationContents(imputationContents)
-            .driverConfirmationStatus(driverConfirmationStatus)
+            .driverConfirmationStatus(false)
             .objectionStatus(objectionStatus)
             .objectionContent(objectionContent)
             .build();
