@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import teamfresh.demo.compensation.domain.Compensation;
-import teamfresh.demo.compensation.domain.CompensationRepository;
+import teamfresh.demo.compensation.domain.repository.CompensationRepository;
 import teamfresh.demo.compensation.exception.NotExistCompensationException;
 import teamfresh.demo.penalty.domain.PenaltyRepository;
 import teamfresh.demo.penalty.dto.PenaltyRequest;
