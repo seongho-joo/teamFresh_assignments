@@ -33,6 +33,7 @@ class VocRepositoryTest {
 
     private Compensation compensation;
     private VOC voc;
+    private Penalty penalty;
 
     @BeforeEach
     void setUp() {
@@ -44,7 +45,7 @@ class VocRepositoryTest {
 
         compensationRepository.save(compensation);
 
-        Penalty penalty = Penalty.builder()
+        penalty = Penalty.builder()
             .cost(1000)
             .content("패널티 내용")
             .compensation(compensation)
@@ -85,6 +86,8 @@ class VocRepositoryTest {
 
         // then
         assertThat(response).isNotNull();
+        assertThat(response.getCompensation().getId()).isEqualTo(compensation.getId());
+        assertThat(response.getPenaltyContents()).isEqualTo(penalty.getContent());
     }
 
     @Test
